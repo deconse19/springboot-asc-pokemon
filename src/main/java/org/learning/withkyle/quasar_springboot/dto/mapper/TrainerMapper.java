@@ -6,6 +6,7 @@ import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterDTO;
 import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterResponseDTO;
 import org.learning.withkyle.quasar_springboot.model.Trainer;
 import org.learning.withkyle.quasar_springboot.model.TrainerProfile;
+import org.learning.withkyle.quasar_springboot.utils.PasswordUtil;
 import org.springframework.cglib.core.Local;
 
 public class TrainerMapper {
@@ -20,7 +21,7 @@ public class TrainerMapper {
         Trainer trainer = new Trainer();
         trainer.setTrainerProfile(trainerProfile);
         trainer.setUserName(trainerRegisterDTO.getUserName());
-        trainer.setPassword(trainerRegisterDTO.getPassword());
+        trainer.setPassword(new PasswordUtil().hash(trainerRegisterDTO.getPassword()));
         trainer.setCreatedAt(LocalDateTime.now());
         trainer.setUpdatedAt(LocalDateTime.now());
 
