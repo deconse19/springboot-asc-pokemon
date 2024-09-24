@@ -1,5 +1,7 @@
 package org.learning.withkyle.quasar_springboot.controller;
 
+import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterDTO;
+import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterResponseDTO;
 import org.learning.withkyle.quasar_springboot.model.Trainer;
 import org.learning.withkyle.quasar_springboot.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,12 @@ public class TrainerController {
         this.trainerService = trainerService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> regTrainer(@RequestBody Trainer trainer){
+    @PostMapping("reg")
+    public ResponseEntity<?> regTrainer(@RequestBody TrainerRegisterDTO trainerRegisterDTO){
         try {
-            Trainer newTrainer = trainerService.registerTrainer(trainer);
+            TrainerRegisterResponseDTO newTrainerResponse = trainerService.registerTrainer(trainerRegisterDTO);
             
-            return ResponseEntity.ok(newTrainer);
+            return ResponseEntity.ok(newTrainerResponse);
         } catch (Exception e) {
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                 .body("Registration failed: " + e.getMessage());

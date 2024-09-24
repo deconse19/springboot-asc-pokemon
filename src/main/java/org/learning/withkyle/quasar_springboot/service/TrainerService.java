@@ -1,5 +1,8 @@
 package org.learning.withkyle.quasar_springboot.service;
 
+import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterDTO;
+import org.learning.withkyle.quasar_springboot.dto.TrainerRegisterResponseDTO;
+import org.learning.withkyle.quasar_springboot.dto.mapper.TrainerMapper;
 import org.learning.withkyle.quasar_springboot.model.Trainer;
 import org.learning.withkyle.quasar_springboot.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,14 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer registerTrainer(Trainer trainer){
-        return trainerRepository.save(trainer);
+    public TrainerRegisterResponseDTO registerTrainer(TrainerRegisterDTO newTrainer){
+        Trainer trainer = TrainerMapper.registerMapper(newTrainer);
+        trainer = trainerRepository.save(trainer);
+        newTrainer.setTrainerId(trainer.getId());
+
+        TrainerRegisterResponseDTO response = TrainerMapper.registerResponseMapper(trainer);
+
+        return response;
     }
 
 }   
