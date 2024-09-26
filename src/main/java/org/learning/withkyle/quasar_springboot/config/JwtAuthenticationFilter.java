@@ -27,7 +27,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException{
@@ -50,9 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 						.setAuthentication(new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>()));
 			}
             }
-        
-        
-            
+
 		chain.doFilter(request, response);
 
         }

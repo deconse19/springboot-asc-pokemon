@@ -32,8 +32,6 @@ public class TrainerService {
     }
 
     public TrainerRegisterResponseDTO registerTrainer(TrainerRegisterDTO newTrainer){
-        
-        
 
         Trainer trainer = TrainerMapper.registerMapper(newTrainer);
         trainer = trainerRepository.save(trainer);
@@ -44,7 +42,6 @@ public class TrainerService {
         return response;
     }
 
-  
     public Optional<HashMap<String, String>> login(LoginTrainerDTO loginTrainerDto) {
         Optional<String> user = trainerRepository.checkUserName(loginTrainerDto.userName);
         if (user.isEmpty() || (!passwordUtil.verify(loginTrainerDto.password,
@@ -55,7 +52,6 @@ public class TrainerService {
         final String accessToken = jwtUtil.generateAccessToken(loginTrainerDto);
         final String refreshToken = jwtUtil.generateRefreshToken(loginTrainerDto);
         
-
         Optional<HashMap<String, String>> map = Optional.of(new HashMap<>());
         map.get().put("accessToken", accessToken);
         map.get().put("refreshToken", refreshToken);
